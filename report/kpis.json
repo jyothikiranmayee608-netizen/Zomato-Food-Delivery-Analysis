@@ -1,0 +1,11 @@
+{
+  "total_deliveries": 45584,
+  "avg_delivery_time_min": 26.29,
+  "median_delivery_time_min": 26.0,
+  "min_delivery_time_min": 10,
+  "max_delivery_time_min": 54,
+  "avg_rating": 4.635,
+  "avg_distance_km": 9.72,
+  "pct_festival_orders": 1.97,
+  "pct_jam_traffic_orders": 31.02
+}

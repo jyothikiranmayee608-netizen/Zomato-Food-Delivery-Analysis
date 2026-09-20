@@ -1,0 +1,67 @@
+
+ZOMATO FOOD DELIVERY - BUSINESS INSIGHTS
+=========================================
+
+1. OVERALL DELIVERY PERFORMANCE
+   Finding:    Average delivery time is 26.3 min; median is 26.0 min.
+   Evidence:   45,584 completed deliveries; distribution is roughly symmetric around the mean.
+   Implication: The slight mean > median indicates some long-tail deliveries inflate the average.
+   Action:     Investigate deliveries beyond 45 min (the top percentile) to identify avoidable delays.
+
+2. CITY-LEVEL DIFFERENCES
+   Finding:    Metropolitan areas show the highest average delivery times; Semi-Urban areas the lowest.
+   Evidence:   City mean delivery times - {'Semi-Urban': 49.73170731707317, 'Metropolitan': 27.135715702666705, 'Urban': 22.983321819796704}.
+   Implication: Urban density and distance both drive delivery time in metropolitan areas.
+   Action:     Consider dedicated fast-dispatch fleets or more restaurant partners in metropolitan areas.
+
+3. TRAFFIC IS THE STRONGEST OPERATIONAL FACTOR
+   Finding:    Delivery time increases progressively with traffic density.
+   Evidence:   Mean delivery times by traffic - {'Low': 21.463892517260682, 'Medium': 26.69968021927821, 'High': 27.240108523626496, 'Jam': 31.176037909328805}.
+   Implication: Jam conditions are associated with significantly longer times vs Low traffic.
+   Action:     Use real-time traffic data to re-route drivers or delay order acceptance during Jam conditions.
+
+4. WEATHER HAS A MODEST BUT CONSISTENT EFFECT
+   Finding:    Adverse weather (Fog, Stormy, Sandstorms) is associated with modestly longer delivery times.
+   Evidence:   Weather mean delivery times - {'Cloudy': 28.91716447630426, 'Fog': 28.73817873987181, 'Windy': 26.118835893290218, 'Sandstorms': 25.875500400320256, 'Stormy': 25.868802742616033, 'Sunny': 21.856770118099423}.
+   Implication: Weather alone does not drastically extend delivery times but compounds with traffic.
+   Action:     Dynamic ETA adjustments and proactive customer notifications during adverse weather events.
+
+5. MULTIPLE SIMULTANEOUS DELIVERIES INCREASE TIME
+   Finding:    Each additional simultaneous delivery is associated with longer delivery times.
+   Evidence:   Multi-delivery mean times - {0: 22.876188448985385, 1: 26.715653307713424, 2: 40.454911838790935, 3: 47.81994459833795}.
+   Implication: Batching orders saves operational cost but hurts customer experience for later stops.
+   Action:     Cap simultaneous deliveries at 2 for time-sensitive premium orders; use batching only for standard.
+
+6. FESTIVAL PERIODS SHOW LONGER DELIVERY TIMES
+   Finding:    Festival orders take longer on average (Mann-Whitney p=0.0000).
+   Evidence:   Festival mean 45.5 min vs Non-Festival 25.9 min.
+   Implication: Higher order volumes and congestion during festivals extend delivery windows.
+   Action:     Pre-position additional delivery personnel in high-density zones before major festivals.
+
+7. DISTANCE IS POSITIVELY ASSOCIATED WITH DELIVERY TIME
+   Finding:    Distance (km) shows a moderate positive association with delivery time (Spearman r=0.319).
+   Evidence:   OLS trend confirms increasing delivery time as distance grows.
+   Implication: Distance is a key input for accurate ETA prediction.
+   Action:     Use distance-based ETA models and set delivery radius thresholds per city.
+
+8. RIDER RATING HAS A WEAK NEGATIVE ASSOCIATION WITH DELIVERY TIME
+   Finding:    Higher-rated riders are associated with marginally shorter delivery times (Spearman r=-0.285).
+   Evidence:   Low statistical significance (p=0.0000); the relationship is not strongly pronounced.
+   Implication: Ratings may capture overall professionalism rather than speed alone.
+   Action:     Do not rely on rating alone as a speed predictor; combine with historical delivery time data.
+
+9. VEHICLE CONDITION IS NOT A STRONG DIFFERENTIATOR
+   Finding:    Vehicle condition scores (0-3) show limited variation in mean delivery time.
+   Evidence:   Condition mean times - {0: 30.073108963678774, 1: 24.35367314346553, 2: 24.45439425187945, 3: 26.49230769230769}.
+   Implication: Fleet condition is maintained well enough that it does not drive major time differences.
+   Action:     Continue routine maintenance checks; condition is not the primary bottleneck.
+
+10. PICKUP DURATION IS POSITIVELY ASSOCIATED WITH DELIVERY TIME
+    Finding:   Longer time between order and pickup is associated with longer total delivery time.
+    Evidence:  Spearman r=-0.005 between Pickup_Duration_min and Delivery_Time_min.
+    Implication: Restaurant preparation time and rider wait times are key upstream delays.
+    Action:    Partner with restaurants to reduce kitchen preparation time; track pickup wait metrics.
+
+NOTE: All relationships described above are associative (observational data). Causal conclusions
+require controlled experimentation. These findings should inform hypothesis generation and
+prioritisation for A/B tests or operational pilots.
